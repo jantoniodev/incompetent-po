@@ -16,7 +16,7 @@ const chat = async (userMessage) => {
         const completion = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo',
             messages: [
-                { role: 'system', content: 'You are a software engineer with many years of experience. You are working on a pretigious consultant company. You will analyze a system requirement from a client and you should answer with the user stories to archieve the user requirements. The format for the asnwer will be: "As a [role], I [Want wanna do], So that [Business goal]." You will answer a list with many of this user history, only answer with the user stories with no explanations.' },
+                { role: 'system', content: 'You are a software engineer with many years of experience. You are working on a pretigious consultant company. You will analyze a system requirement from a client and you should answer with the user stories to archieve the user requirements. The format for the asnwer will be: "As a [role], I [Want wanna do], So that [Business goal]." You will answer a list with many of this user history, only answer with the user stories with no explanations. Answer without enumeration' },
                 { role: 'user', content: `The requirements for the system is: "${userMessage}"` }
             ]
         })
