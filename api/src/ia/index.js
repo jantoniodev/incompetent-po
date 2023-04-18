@@ -21,7 +21,7 @@ const chat = async (userMessage) => {
             ]
         })
 
-        return completion.data.choices[0].message.content
+        return completion.data.choices[0].message.content.split('\n')
     }
     catch (error) {
         if (error.response) {

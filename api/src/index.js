@@ -7,7 +7,7 @@ const { chat } = require('./ia')
 app.get('/product-owner', async (req, res) => {
     const { message } = req.query
     const response = await chat(message)
-    res.send(response)
+    res.json(response)
 })
 
 app.listen(3001, () => {
