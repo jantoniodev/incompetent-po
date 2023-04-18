@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incompetent PO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="loading.css">
+    <script defer src="./app.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Incompetent PO</h1>
+    </header>
+
+    <form id="form">
+        <input type="text" name="message" placeholder="Your system requirements">
+        <button type="submit">Do the work</button>
+    </form>
+
+    <div id="loading" class="hide loading">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <span>Working faster than your PO</span>
+    </div>
+
+    <article id="userStories" class="hide">
+        <h2>User Stories</h2>
+        <section>
+            <ol id="userStoriesList">
+            </ol>
+        </section>
+    </article>
+</body>
+</html>
