@@ -6,6 +6,8 @@ import { dummyResponse } from './dummyResponse'
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
+const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE || false
+
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
 
 interface UserStoryResponse {
@@ -53,6 +55,12 @@ export async function generate(prevState: any, formData: FormData) {
     const userPrompt = `
         El requerimiento es el siguiente: "${formPrompt}".
     `
+
+    if(USE_DUMMY_RESPONSE) {
+        return {
+            result: dummyResponse
+        }
+    }
 
     const response = await fetch(COMPLETIONS_API, {
         method: 'POST',
