@@ -1,28 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react' 
+import { useFormState } from 'react-dom'
 
-import { UserStory } from '@/entities/userStory'
 import { PromptForm } from '@/components/PromptForm'
 import { Board } from '@/components/Board'
+import { generate } from '@/actions/generate'
 
-import styles from "./page.module.css";
+import styles from "./page.module.css"
+
+const initialState = {
+    result: null
+}
 
 export default function Home() {
-    const [response, setResponse] = useState<UserStory[] | null>(null)
+    const [loading, setLoading] = useState(false)
+    const [state, formAction] = useFormState(generate, initialState)
 
     return (
         <div className={styles.content}>
             <h1>Incompetent PO</h1>
 
             <div className={styles.promptForm}>
-                <PromptForm onResponse={setResponse}/>
+                <PromptForm action={formAction} onLoading={setLoading}/>
             </div>
 
-
             {
-                response &&
-                <Board histories={response}/>
+                (state.result && !loading) &&
+                <Board histories={state.result}/>
             }
         </div>
     )
