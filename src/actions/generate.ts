@@ -31,7 +31,7 @@ export async function generate(prevState: any, formData: FormData) {
         los criterios de aceptación separados por: criterios de aceptación del 
         negocio y criterios de aceptación tecnicos.
 
-        Debes generar al menos 20 historias de usuario.
+        Debes generar al como máximo 10 historias de usuario.
 
         La respuesta debe seguir la siguiente interfaz de typescript pero el 
         resultado debe ser en JSON, no typescript:
