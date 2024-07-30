@@ -6,7 +6,7 @@ import { dummyResponse } from './dummyResponse'
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
-const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE || false
+const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE === 'true'
 
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
 
@@ -57,6 +57,8 @@ export async function generate(prevState: any, formData: FormData) {
     `
 
     if(USE_DUMMY_RESPONSE) {
+        console.log(USE_DUMMY_RESPONSE)
+        console.log('Using dummy response')
         return {
             result: dummyResponse
         }

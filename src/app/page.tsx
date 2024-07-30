@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 
+import { UserStory } from '@/entities/userStory'
 import { PromptForm } from '@/components/PromptForm'
+import { Board } from '@/components/Board'
 
 import styles from "./page.module.css";
 
 export default function Home() {
-    const [response, setResponse] = useState<any>(null)
+    const [response, setResponse] = useState<UserStory[] | null>(null)
 
     return (
         <div>
@@ -16,9 +18,7 @@ export default function Home() {
 
             {
                 response &&
-                <pre className={styles.response}>
-                    {JSON.stringify(response, null, 4)}
-                </pre>
+                <Board histories={response}/>
             }
         </div>
     )

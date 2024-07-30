@@ -1,0 +1,35 @@
+.boardCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(200, 200, 200);
+    padding: 1.5rem;
+    border-radius: 5px;
+    height: fit-content;
+}
+
+.boardTitle {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.boardStory {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.listTitle {
+    margin: 0;
+    font-weight: 600;
+}
+
+.expandButton {
+    background: none;
+    border: none;
+    font-weight: 600;
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
