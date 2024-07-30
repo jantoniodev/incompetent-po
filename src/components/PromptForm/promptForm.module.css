@@ -1,0 +1,35 @@
+.form {
+    display: flex;
+}
+
+.textarea {
+    outline: none;
+    width: 100%;
+    height: 5rem;
+    resize: none;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(200, 200, 200);
+    padding: 0.8rem;
+    border-radius: 5px 0px 0px 5px;
+    border-right: none;
+}
+
+.textarea:focus {
+    border: 2px solid rgb(200, 200, 200);
+}
+
+.button {
+    border-radius: 0px 5px 5px 0px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(200, 200, 200);
+    outline: none;
+}
+
+.button:hover {
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
+.button:focus {
+    border: 2px solid rgb(200, 200, 200);
+}

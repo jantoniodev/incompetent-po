@@ -12,8 +12,9 @@ export default function Home() {
     const [response, setResponse] = useState<UserStory[] | null>(null)
 
     return (
-        <div>
+        <div className={styles.content}>
             <h1>Incompetent PO</h1>
+
             <PromptForm onResponse={setResponse}/>
 
             {
