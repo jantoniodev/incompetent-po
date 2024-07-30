@@ -15,9 +15,3 @@
     font-size: 0.8rem;
     color: rgb(100, 100, 100);
 }
-
-.boardContent {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-}

@@ -64,7 +64,7 @@ export async function generate(prevState: any, formData: FormData) {
             result: [
                 ...dummyResponse,
                 ...dummyResponse,
-            ]
+            ].map((response, index) => ({...response, id: index + 1}))
         }
     }
 

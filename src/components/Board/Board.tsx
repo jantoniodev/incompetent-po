@@ -1,4 +1,5 @@
 'use client'
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 import styles from './board.module.css'
 
@@ -20,13 +21,15 @@ export const Board = ({
                     <div className={styles.boardCount}>{histories.length}</div>
                 </div>
 
-                <div className={styles.boardContent}>
-                    {
-                        histories.map((story) => 
-                            <BoardCard key={story.id} story={story} />
-                        )
-                    }
-                </div>
+                <ResponsiveMasonry>
+                    <Masonry gutter='1rem'>
+                        {
+                            histories.map((story) => 
+                                <BoardCard key={story.id} story={story} />
+                            )
+                        }
+                    </Masonry>
+                </ResponsiveMasonry>
             </div>
         </>
     )
