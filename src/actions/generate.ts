@@ -61,7 +61,10 @@ export async function generate(prevState: any, formData: FormData) {
         console.log('Using dummy response')
         await new Promise(resolve => setTimeout(resolve, 2000))
         return {
-            result: dummyResponse
+            result: [
+                ...dummyResponse,
+                ...dummyResponse,
+            ]
         }
     }
 

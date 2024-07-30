@@ -16,48 +16,44 @@ export const BoardCard = ({
 
     return (
         <div className={styles.boardCard}>
-            <h1 className={styles.boardTitle}>{story.title}</h1>
-            <h2 className={styles.boardStory}>{story.story}</h2>
+            <header>
+                <h1 className={styles.boardTitle}>{story.title}</h1>
+                <h2 className={styles.boardStory}>{story.story}</h2>
+            </header>
 
-            {
-                !isExpanded &&
+            <main>
+                {
+                    isExpanded &&
+                    <>
+                        <p className={styles.boardDescription}>{story.description}</p>
+
+                        <p className={styles.listTitle}>Criterios de aceptación de negocio:</p>
+                        <ul>
+                            {
+                                story.acceptanceCriteria.business
+                                    .map((criteria) => <li key={criteria}>{criteria}</li>)
+                            }
+                        </ul>
+
+                        <p className={styles.listTitle}>Criterios de aceptación técnicos:</p>
+                        <ul>
+                            {
+                                story.acceptanceCriteria.technical
+                                    .map((criteria) => <li key={criteria}>{criteria}</li>)
+                            }
+                        </ul>
+                    </>
+                }
+            </main>
+
+            <footer className={styles.cardFooter}>
                 <button
                     className={styles.expandButton}
-                    onClick={() => setIsExpanded(true)}
+                    onClick={() => setIsExpanded(prev => !prev)}
                 >
-                    Ver más
+                    { isExpanded ? 'Ver menos' : 'Ver más' }
                 </button>
-            }
-
-            {
-                isExpanded &&
-                <>
-                    <p className={styles.boardDescription}>{story.description}</p>
-
-                    <p className={styles.listTitle}>Criterios de aceptación de negocio:</p>
-                    <ul>
-                        {
-                            story.acceptanceCriteria.business
-                                .map((criteria) => <li key={criteria}>{criteria}</li>)
-                        }
-                    </ul>
-
-                    <p className={styles.listTitle}>Criterios de aceptación técnicos:</p>
-                    <ul>
-                        {
-                            story.acceptanceCriteria.technical
-                                .map((criteria) => <li key={criteria}>{criteria}</li>)
-                        }
-                    </ul>
-
-                    <button
-                        className={styles.expandButton}
-                        onClick={() => setIsExpanded(false)}
-                    >
-                        Ver menos
-                    </button>
-                </>
-            }
+            </footer>
         </div>
     )
 }
