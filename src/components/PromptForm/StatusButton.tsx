@@ -5,10 +5,12 @@ import { Loader } from '../Loader'
 import styles from './statusButton.module.css'
 
 export interface StatusButtonProps {
+    disabled?: boolean
     onLoading?: (loading: boolean) => void
 }
 
 export function StatusButton({
+    disabled = false,
     onLoading = () => {}
 }: StatusButtonProps) {
     const status = useFormStatus()
@@ -23,6 +25,6 @@ export function StatusButton({
         className={styles.button}
         type="submit"
         value="Generar historias"
-        disabled={status.pending}
+        disabled={status.pending || disabled}
     />
 }

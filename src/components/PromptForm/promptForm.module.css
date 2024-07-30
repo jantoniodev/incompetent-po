@@ -6,6 +6,11 @@
     gap: 1rem;
 }
 
+.textareaContainer {
+    position: relative;
+    width: 100%;
+}
+
 .textarea {
     outline: none;
     width: 100%;
@@ -22,4 +27,18 @@
 
 .textarea:focus {
     outline: 2px solid var(--color-primary);
+}
+
+.characterCounter {
+    color: var(--foreground-secondary-transparent);
+    background-color: var(--background-secondary-transparent);
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+    text-align: right;
+}
+
+.maxReached {
+    color: var(--color-error);
+    background-color: var(--background-secondary);
 }
