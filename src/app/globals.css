@@ -1,3 +1,14 @@
+:root {
+    --background: #212121;
+    --foreground: #f5f5f5;
+    --background-secondary: #2F2F2F;
+    --color-primary: #1a73e8;
+    --color-primary-transparent: #1a73e850;
+    --color-accent: #9F2B68;
+}
+
 body {
+    color: var(--foreground);
+    background-color: var(--background);
     padding: 0.8rem 2.3rem;
 }

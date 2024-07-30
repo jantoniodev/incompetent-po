@@ -1,9 +1,10 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useFormStatus, useFormState } from 'react-dom'
 
 import { generate } from '@/actions/generate'
-import { useEffect } from 'react'
+import { Loader } from '@/components/Loader'
 
 import styles from './promptForm.module.css'
 
@@ -18,10 +19,14 @@ interface PromptFormProps {
 function StatusButton() {
     const status = useFormStatus()
 
+    if(status.pending) {
+        return <Loader/>
+    }
+
     return <input
         className={styles.button}
         type="submit"
-        value={status.pending ? "Obteniendo respuesta..." : "Obtener respuesta"}
+        value="Generar historias"
         disabled={status.pending}
     />
 }

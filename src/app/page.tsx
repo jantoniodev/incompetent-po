@@ -15,7 +15,10 @@ export default function Home() {
         <div className={styles.content}>
             <h1>Incompetent PO</h1>
 
-            <PromptForm onResponse={setResponse}/>
+            <div className={styles.promptForm}>
+                <PromptForm onResponse={setResponse}/>
+            </div>
+
 
             {
                 response &&
