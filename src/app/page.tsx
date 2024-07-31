@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
 import { PromptForm } from '@/components/PromptForm'
+import { Error } from '@/components/Error'
 import { Board } from '@/components/Board'
 import { generate } from '@/actions/generate'
 
@@ -23,6 +24,11 @@ export default function Home() {
 
             <div className={styles.promptForm}>
                 <PromptForm action={formAction} onLoading={setLoading}/>
+
+                {
+                    (state.error && !loading) &&
+                    <Error message={state.errorMessage}/>
+                }
             </div>
 
             {

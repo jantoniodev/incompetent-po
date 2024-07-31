@@ -7,7 +7,7 @@
     --foreground-secondary-transparent: rgba(100, 100, 100, 0.4);
     --color-primary: #1a73e8;
     --color-primary-transparent: #1a73e850;
-    --color-accent: #9F2B68;
+    --color-accent: #e70b80;
     --color-error: var(--color-accent);
 }
 

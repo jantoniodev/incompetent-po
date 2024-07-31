@@ -1,5 +1,6 @@
 'use server'
 
+import { generateUUID } from '@/utils/uuid'
 import { UserStory } from '@/entities/userStory'
 
 import { dummyResponse } from './dummyResponse'
@@ -11,14 +12,28 @@ const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE === 'true'
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
 
 interface UserStoryResponse {
+    error?: boolean
+    errorMessage?: string
     result: UserStory[] | null
 }
 
 export async function generate(prevState: any, formData: FormData) {
     const formPrompt = formData.get('prompt') as string
 
-    if (!formPrompt) {
-        throw new Error('No prompt is required')
+    if (!formPrompt.trim()) {
+        return {
+            error: true,
+            errorMessage: 'Debes ingresar requerimientos.',
+            result: null
+        }
+    }
+
+    if (formPrompt.length > 500) {
+        return {
+            error: true,
+            errorMessage: 'No puedes ingresar más de 500 caracteres.',
+            result: null
+        }
     }
 
     const systemPrompt = `
@@ -56,7 +71,7 @@ export async function generate(prevState: any, formData: FormData) {
         El requerimiento es el siguiente: "${formPrompt}".
     `
 
-    if(USE_DUMMY_RESPONSE) {
+    if (USE_DUMMY_RESPONSE) {
         console.log(USE_DUMMY_RESPONSE)
         console.log('Using dummy response')
         await new Promise(resolve => setTimeout(resolve, 2000))
@@ -64,37 +79,49 @@ export async function generate(prevState: any, formData: FormData) {
             result: [
                 ...dummyResponse,
                 ...dummyResponse,
-            ].map((response, index) => ({...response, id: index + 1}))
+            ].map((response, index) => ({ ...response, id: index + 1 }))
         }
     }
 
-    const response = await fetch(COMPLETIONS_API, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [
-                {
-                    role: 'system',
-                    content: systemPrompt
-                },
-                {
-                    role: 'user',
-                    content: userPrompt
-                }
-            ],
-            temperature: 0.5,
+    try {
+        const response = await fetch(COMPLETIONS_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [
+                    {
+                        role: 'system',
+                        content: systemPrompt
+                    },
+                    {
+                        role: 'user',
+                        content: userPrompt
+                    }
+                ],
+                temperature: 0.5,
+            })
         })
-    })
 
-    const json = await response.json()
+        const json = await response.json()
 
-    const content = JSON.parse(json.choices[0].message.content)
+        const content = JSON.parse(json.choices[0].message.content)
 
-    return {
-        result: content
-    } as UserStoryResponse
+        return {
+            result: content
+        } as UserStoryResponse
+    } catch(error) {
+        const uuid = generateUUID()
+
+        console.error(uuid, error)
+
+        return {
+            error: true,
+            errorMessage: `Ocurrió un error al intentar generar las historias de usuario. (Ref: ${uuid})`,
+            result: null
+        }
+    }
 }
