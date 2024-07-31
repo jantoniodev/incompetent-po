@@ -23,7 +23,7 @@ export function PromptForm({
         setPromptCount(event.target.value.length)
     }
 
-    const maxReached = promptCount >= MAX_PROMPT_LENGTH
+    const maxReached = promptCount > MAX_PROMPT_LENGTH
 
     return (
         <form className={styles.form} action={action}>
