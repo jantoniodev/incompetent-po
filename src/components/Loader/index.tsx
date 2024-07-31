@@ -9,11 +9,16 @@ const messages = [
 ]
 
 export const Loader = () => {
+    const [showAfterDebounce, setShowAfterDebounce] = useState(false)
     const [showMessage, setShowMessage] = useState(false)
     const [selectedMessage, setSelectedMessage] = useState(messages[0])
 
     useEffect(() => {
         let interval: NodeJS.Timeout
+
+        const debounceTimeout = setTimeout(() => {
+            setShowAfterDebounce(true)
+        }, 300)
 
         const timeout = setTimeout(() => {
             setShowMessage(true)
@@ -27,9 +32,14 @@ export const Loader = () => {
 
         return () => {
             clearTimeout(timeout)
+            clearTimeout(debounceTimeout)
             clearInterval(interval)
         }
     }, [])
+
+    if(!showAfterDebounce) {
+        return null
+    }
 
     return (
         <>
