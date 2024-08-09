@@ -2,10 +2,13 @@
 
 import { generateUUID } from '@/utils/uuid'
 import { UserStory } from '@/entities/userStory'
+import { JSEncrypt } from 'jsencrypt'
 
 import { dummyResponse } from './dummyResponse'
 
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
+
+const privateKey = (process.env.PRIVATE_KEY as string)?.replace(/\\n/g, '\n')
 
 interface UserStoryResponse {
     error?: boolean
@@ -14,9 +17,17 @@ interface UserStoryResponse {
     result: UserStory[] | null
 }
 
+function decryptData(data: string) {
+    const decrypt = new JSEncrypt()
+    decrypt.setPrivateKey(privateKey)
+    return decrypt.decrypt(data)
+}
+
 export async function generate(prevState: any, formData: FormData): Promise<UserStoryResponse> {
     const formPrompt = formData.get('prompt') as string
     const apiKey = formData.get('apikey') as string
+
+    const decryptedApiKey = decryptData(apiKey)
 
     if (!formPrompt.trim()) {
         return {
@@ -89,7 +100,7 @@ export async function generate(prevState: any, formData: FormData): Promise<User
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Authorization': `Bearer ${decryptedApiKey}`
             },
             body: JSON.stringify({
                 model: 'gpt-4o-mini',

@@ -1,27 +1,39 @@
 import { useState, useEffect } from 'react'
+import { JSEncrypt } from 'jsencrypt'
 
-export function useLocalStorage(localStorageName: string) {
-    const [localStorage, setLocalStorage] = useState(() => {
-        const data = window.localStorage.getItem(localStorageName)
-        return data ? JSON.parse(data) : null
-    })
+const PUBLIC_KEY = (process.env.NEXT_PUBLIC_PUBLIC_KEY as string)?.replace(/\\n/g, '\n')
+
+export function useLocalStorage(localStorageName: string, encrypt = false): [string, (data: any) => void] {
+    const [localStorage, setLocalStorage] = useState('')
 
     useEffect(() => {
+        const data = window.localStorage.getItem(localStorageName)
+        setLocalStorage(data ? JSON.parse(data) : '')
+
         const onStorageChange = (event: StorageEvent) => {
             if (event.key === localStorageName) {
-                setLocalStorage(event.newValue)
+                setLocalStorage(event.newValue || '')
             }
         }
 
         addEventListener('storage', onStorageChange)
 
-        return () => removeEventListener('storage', onStorageChange)
+        return () => {
+            removeEventListener('storage', onStorageChange)
+        }
     }, [])
 
     function saveLocalStorage(data: any) {
-        setLocalStorage(data)
-        window.localStorage.setItem(localStorageName, JSON.stringify(data))
+        const encriptedData = encrypt ? encryptData(data) : data
+        setLocalStorage(encriptedData)
+        window.localStorage.setItem(localStorageName, JSON.stringify(encriptedData))
     }
 
     return [localStorage, saveLocalStorage]
+}
+
+function encryptData(data: string) {
+    const encrypt = new JSEncrypt()
+    encrypt.setPublicKey(PUBLIC_KEY)
+    return encrypt.encrypt(data)
 }

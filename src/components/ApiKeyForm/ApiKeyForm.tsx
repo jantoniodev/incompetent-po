@@ -24,6 +24,10 @@ export const ApiKeyForm = ({
                     Copia la api key y pégala en el input de abajo.
                 </p>
 
+                <p>
+                    Tu api key quedará encriptada en tu navegador y no será compartida con nadie.
+                </p>
+
             </article>
 
             <input className={styles.input} name='apikey' type="password" placeholder="Api Key" />

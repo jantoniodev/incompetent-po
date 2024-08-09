@@ -19,7 +19,7 @@ const initialState = {
 }
 
 export default function Home() {
-    const [openAiKey, setOpenAiKey] = useLocalStorage('openAiKey')
+    const [openAiKey, setOpenAiKey] = useLocalStorage('openAiKey', true)
     const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [state, formAction] = useFormState(generate, initialState)
