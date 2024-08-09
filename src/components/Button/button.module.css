@@ -26,3 +26,23 @@
     filter: grayscale(1);
     cursor: not-allowed;
 }
+
+.lightButton {
+    border: 2px solid var(--foreground-secondary-transparent);
+    background-color: var(--background-secondary);
+    color: var(--foreground);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.lightButton:focus {
+    outline: none;
+    border: 2px solid var(--color-primary);
+}
+
+.lightButton:hover {
+    border: 2px solid var(--color-primary);
+    background-color: var(--background-secondary-transparent);
+}

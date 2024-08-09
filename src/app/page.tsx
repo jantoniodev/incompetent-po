@@ -8,6 +8,7 @@ import { Error } from '@/components/Error'
 import { Board } from '@/components/Board'
 import { ApiKeyForm } from '@/components/ApiKeyForm'
 import { Modal } from '@/components/Modal'
+import { LightButton } from '@/components/Button'
 import { generate } from '@/actions/generate'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 
@@ -22,16 +23,6 @@ export default function Home() {
     const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [state, formAction] = useFormState(generate, initialState)
-
-    
-    useEffect(() => {
-        if(state.code === 'invalid_api_key') {
-            setTimeout(() => {
-                setOpenAiKey('')
-                setApiKeyModalOpen(true)
-            }, 1000)
-        }
-    }, [state.code])
 
     const handleFormAction = (formData: FormData) => {
         if (!openAiKey) {
@@ -56,7 +47,10 @@ export default function Home() {
 
     return (
         <div className={styles.content}>
-            <h1>Incompetent PO</h1>
+            <header className={styles.header}>
+                <h1 className={styles.title}>Incompetent PO</h1>
+                <LightButton title="Api key" onClick={() => setApiKeyModalOpen(true)}/>
+            </header>
 
             <div className={styles.promptForm}>
                 <PromptForm action={handleFormAction} onLoading={setLoading}/>

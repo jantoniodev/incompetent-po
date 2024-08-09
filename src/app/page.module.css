@@ -10,3 +10,15 @@
     align-items: center;
     gap: 1rem;
 }
+
+.title {
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
