@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { PropagateLoader } from 'react-spinners'
 
+import styles from './loader.module.css'
+
 const messages = [
     'Trabajando más rápido que tu product owner',
     'Generando historias de usuario',
@@ -44,7 +46,7 @@ export const Loader = () => {
     return (
         <>
             <PropagateLoader color='var(--color-primary)' size={25}/>
-            {showMessage && <p>{selectedMessage}</p>}
+            {showMessage && <p className={styles.message}>{selectedMessage}</p>}
         </>
     )
 }

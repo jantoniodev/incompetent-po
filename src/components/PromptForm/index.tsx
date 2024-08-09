@@ -32,7 +32,6 @@ export function PromptForm({
                     name="prompt"
                     id="prompt"
                     cols={80}
-                    rows={20}
                     onChange={handleChange}
                     className={styles.textarea}
                     placeholder="Escribe tus requerimientos aquí"/>

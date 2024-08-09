@@ -2,6 +2,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 90%;
+    max-height: 100vh;
+    max-width: 640px;
+    box-sizing: border-box;
     transform: translate(-50%, -50%);
     background-color: var(--background-secondary);
     border-radius: 0.5rem;
@@ -32,4 +36,25 @@
 
 .modalContent {
     padding: 0 5rem 5rem 5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 90%;
+        padding: 1rem 1rem;
+    }
+
+    .modalContent {
+        padding: 0 1rem 1rem 1rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1439px) {
+    .modal {
+        padding: 1.5rem 1.5rem;
+    }
+
+    .modalContent {
+        padding: 0 1.5rem 1.5rem 1.5rem;
+    }
 }
