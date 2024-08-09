@@ -34,7 +34,7 @@ export function PromptForm({
                     cols={80}
                     onChange={handleChange}
                     className={styles.textarea}
-                    placeholder="Escribe tus requerimientos aquí"/>
+                    placeholder="Escribe tus requerimientos aquí. Escribe la palabra 'demo' para obtener una respuesta de prueba."/>
                 <CharacterCounter
                     current={promptCount}
                     max={MAX_PROMPT_LENGTH}

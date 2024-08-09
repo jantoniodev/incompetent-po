@@ -25,7 +25,12 @@ export default function Home() {
     const [state, formAction] = useFormState(generate, initialState)
 
     const handleFormAction = (formData: FormData) => {
-        if (!openAiKey) {
+        const prompt = formData.get('prompt') as string
+
+        const isDemoPrompt = ['demo', 'test', 'prueba']
+            .includes(prompt.toLowerCase())
+
+        if (!openAiKey && !isDemoPrompt) {
             setApiKeyModalOpen(true)
             return
         }

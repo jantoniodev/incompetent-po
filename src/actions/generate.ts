@@ -5,8 +5,6 @@ import { UserStory } from '@/entities/userStory'
 
 import { dummyResponse } from './dummyResponse'
 
-const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE === 'true'
-
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
 
 interface UserStoryResponse {
@@ -73,10 +71,11 @@ export async function generate(prevState: any, formData: FormData): Promise<User
         El requerimiento es el siguiente: "${formPrompt}".
     `
 
-    if (USE_DUMMY_RESPONSE) {
-        console.log(USE_DUMMY_RESPONSE)
+    const useDummyResponse = ['demo', 'test', 'prueba'].includes(formPrompt.toLowerCase())
+
+    if (useDummyResponse) {
         console.log('Using dummy response')
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 10000))
         return {
             result: [
                 ...dummyResponse,
