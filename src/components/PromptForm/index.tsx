@@ -2,8 +2,8 @@
 import { useState } from 'react'
 
 import { CharacterCounter } from '@/components/CharacterCounter'
+import { Button } from '@/components/Button'
 
-import { StatusButton } from './StatusButton'
 import styles from './promptForm.module.css'
 
 const MAX_PROMPT_LENGTH = 500
@@ -42,7 +42,7 @@ export function PromptForm({
                     className={`${styles.characterCounter} ${maxReached ? styles.maxReached : ''}`}
                 />
             </div>
-            <StatusButton disabled={maxReached} onLoading={onLoading}/>
+            <Button title="Generar historias" disabled={maxReached} onLoading={onLoading}/>
         </form>
     )
 }

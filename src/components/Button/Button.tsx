@@ -2,14 +2,16 @@ import { useFormStatus } from 'react-dom'
 
 import { Loader } from '../Loader'
 
-import styles from './statusButton.module.css'
+import styles from './button.module.css'
 
 export interface StatusButtonProps {
+    title: string
     disabled?: boolean
     onLoading?: (loading: boolean) => void
 }
 
-export function StatusButton({
+export function Button({
+    title,
     disabled = false,
     onLoading = () => {}
 }: StatusButtonProps) {
@@ -24,7 +26,7 @@ export function StatusButton({
     return <input
         className={styles.button}
         type="submit"
-        value="Generar historias"
+        value={title}
         disabled={status.pending || disabled}
     />
 }

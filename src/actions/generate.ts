@@ -5,8 +5,6 @@ import { UserStory } from '@/entities/userStory'
 
 import { dummyResponse } from './dummyResponse'
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY
-
 const USE_DUMMY_RESPONSE = process.env.USE_DUMMY_RESPONSE === 'true'
 
 const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
@@ -14,15 +12,18 @@ const COMPLETIONS_API = 'https://api.openai.com/v1/chat/completions'
 interface UserStoryResponse {
     error?: boolean
     errorMessage?: string
+    code?: string
     result: UserStory[] | null
 }
 
-export async function generate(prevState: any, formData: FormData) {
+export async function generate(prevState: any, formData: FormData): Promise<UserStoryResponse> {
     const formPrompt = formData.get('prompt') as string
+    const apiKey = formData.get('apikey') as string
 
     if (!formPrompt.trim()) {
         return {
             error: true,
+            code: 'empty_prompt',
             errorMessage: 'Debes ingresar requerimientos.',
             result: null
         }
@@ -31,6 +32,7 @@ export async function generate(prevState: any, formData: FormData) {
     if (formPrompt.length > 500) {
         return {
             error: true,
+            code: 'max_length_exceeded',
             errorMessage: 'No puedes ingresar más de 500 caracteres.',
             result: null
         }
@@ -88,7 +90,7 @@ export async function generate(prevState: any, formData: FormData) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
+                'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
                 model: 'gpt-4o-mini',
@@ -108,6 +110,24 @@ export async function generate(prevState: any, formData: FormData) {
 
         const json = await response.json()
 
+        if(json.error?.code === 'invalid_api_key') {
+            return {
+                error: true,
+                errorMessage: 'La api key es inválida.',
+                code: 'invalid_api_key',
+                result: null
+            }
+        }
+
+        if(!!json.error) {
+            console.log(json)
+            return {
+                error: true,
+                errorMessage: json.error.message,
+                result: null
+            }
+        }
+
         const content = JSON.parse(json.choices[0].message.content)
 
         return {
@@ -120,6 +140,7 @@ export async function generate(prevState: any, formData: FormData) {
 
         return {
             error: true,
+            code: 'unexpected_error',
             errorMessage: `Ocurrió un error al intentar generar las historias de usuario. (Ref: ${uuid})`,
             result: null
         }
