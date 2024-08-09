@@ -29,6 +29,24 @@ export async function generate(prevState: any, formData: FormData): Promise<User
 
     const decryptedApiKey = decryptData(apiKey)
 
+    if(decryptedApiKey === false) {
+        return {
+            error: true,
+            code: 'invalid_api_key',
+            errorMessage: 'No se ha podido desencriptar la api key.',
+            result: null
+        }
+    }
+
+    if(decryptedApiKey.trim() === '') {
+        return {
+            error: true,
+            code: 'invalid_api_key',
+            errorMessage: 'Configura la api key correctamente.',
+            result: null
+        }
+    }
+
     if (!formPrompt.trim()) {
         return {
             error: true,
