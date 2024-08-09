@@ -21,7 +21,7 @@ export function useLocalStorage(localStorageName: string, encrypt = false): [str
         return () => {
             removeEventListener('storage', onStorageChange)
         }
-    }, [])
+    }, [localStorageName])
 
     function saveLocalStorage(data: any) {
         const encriptedData = encrypt ? encryptData(data) : data

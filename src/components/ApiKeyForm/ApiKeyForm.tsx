@@ -19,8 +19,8 @@ export const ApiKeyForm = ({
                 </p>
 
                 <p>
-                    Haz click en el botón "Create new secret key", saldrá un modal, 
-                    introduce un nombre para tu api key y haz click en el botón "Create secret key".
+                    Haz click en el botón &quot;Create new secret key&quot;, saldrá un modal, 
+                    introduce un nombre para tu api key y haz click en el botón &quot;Create secret key&quot;.
                     Copia la api key y pégala en el input de abajo.
                 </p>
 
